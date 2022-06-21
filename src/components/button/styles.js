@@ -12,7 +12,7 @@ button{
     color: #F8F9FA;
     background-color: ${({backcolor})=> backcolor};
     
-    height: 2rem;
+    height: ${({sizeX})=> sizeX};
     width: ${({size})=> size};
 }
 `;
