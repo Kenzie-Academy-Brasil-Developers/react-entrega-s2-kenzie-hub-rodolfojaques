@@ -12,4 +12,10 @@ align-items: center;
         height: 1.2rem;
     }
 
+    button{
+        &:hover{
+            border: solid #F8F9FA;   
+        }   
+    }
+
 `;

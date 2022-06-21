@@ -22,12 +22,19 @@ align-items: center;
 
         height: 2.6rem;
         width: 90%;
+        max-width: 320px;
 
         display: flex;
         justify-content: space-around;
         align-items: center;
 
         border-radius: 5px;
+
+        span{
+            &:hover{
+                cursor: pointer;
+            }
+        }
     }
 
 `;

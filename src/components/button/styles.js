@@ -14,5 +14,9 @@ button{
     
     height: ${({sizeX})=> sizeX};
     width: ${({size})=> size};
+
+    &:hover{
+            border: solid #F8F9FA;   
+    }   
 }
 `;

@@ -1,4 +1,6 @@
 import { Route, Switch, useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,8 +10,7 @@ import  GlobalStyle  from './styles/styles';
 import { Login } from './pages/login';
 import { Register } from './pages/register';
 import { Home } from './pages/home';
-import axios from 'axios';
-import { useState } from 'react';
+
 
 function App() {
 
@@ -17,9 +18,9 @@ function App() {
 
   const history = useHistory()
 
-  const [autenticado,setAutenticado] = useState(false)
-
   const [addTech, setAddTech] = useState(false)
+
+  const [editTech,setEditTech] = useState(false)
 
   const base_URL = 'https://kenziehub.herokuapp.com'
 
@@ -28,7 +29,7 @@ function App() {
     axios.post(`${base_URL}/users`,data)
     .then((resp) => {
       toast.success('Conta criada com sucesso!', {
-        position: "top-left",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -41,7 +42,7 @@ function App() {
     })
     .catch((err)=> {
       toast.error('Ops! Algo deu errado', {
-        position: "top-left",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -63,12 +64,11 @@ function App() {
       localStorage.setItem('Token_User',token)
       localStorage.setItem('Info_User',JSON.stringify(user))
 
-      setAutenticado(true)
       history.push('/home')
     })
     .catch((err)=> {
       toast.error('Ops! Algo deu errado', {
-        position: "top-left",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -84,9 +84,8 @@ function App() {
 
     axios.post(`${base_URL}/users/techs`, data, {headers:{Authorization: `Bearer ${token}`}})
     .then((resp)=> {
-      console.log(resp)
       toast.success('Sucesso ao adicionar nova tecnologia!', {
-        position: "top-left",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -96,20 +95,89 @@ function App() {
         theme: "dark",
       })
       setAddTech(false)
+      setTimeout(()=>{
+        window.location.reload()
+      },3100)
+    })
+    .catch((err)=> {
+      toast.error('Ops! Algo deu errado', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+      setAddTech(false)
+      setTimeout(()=>{
+        window.location.reload()
+      },3100)
+    })
+  }
+
+  const apiEditTech = (data,techId)=> {
+
+    axios.put(`${base_URL}/users/techs/${techId}`, data, {headers:{Authorization: `Bearer ${token}`}})
+    .then((resp)=> {
+      resp?.status === 201?
+      toast.success('Sucesso ao editar tecnologia!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }):<></>
+      setEditTech(false)
+      setTimeout(()=>{
+        window.location.reload()
+      },3100) 
+    })
+    .catch((err)=> {
+      toast.error('Ops! Algo deu errado', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+      setEditTech(false)
+      setTimeout(()=>{
+        window.location.reload()
+      },3100) 
+    })
+  }
+
+  const deleteTech = (techId)=> {
+
+    axios.delete(`${base_URL}/users/techs/${techId}`, {headers:{Authorization: `Bearer ${token}`}})
+    .then((resp)=> {
+      toast.success('Sucesso ao excluir tecnologia!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+      setEditTech(false)
+      setTimeout(()=>{
+        window.location.reload()
+      },3100) 
     })
     .catch((err)=> {
       console.log(err)
-      toast.error('Ops! Algo deu errado', {
-        position: "top-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      })
-      setAddTech(false)
+      setEditTech(false)
+        window.location.reload() 
     })
   }
 
@@ -117,7 +185,7 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <ToastContainer
-      position="top-left"
+      position="top-right"
       autoClose={5000}
       hideProgressBar={false}
       newestOnTop={false}
@@ -140,11 +208,13 @@ function App() {
         </Route>
         <Route exact path={'/home'}>
           <Home 
-          autenticado={autenticado}
-          setAutenticado={setAutenticado}
           addTech={addTech} 
           setAddTech={setAddTech}
           createTech={createTech}
+          editTech={editTech}
+          setEditTech={setEditTech}
+          apiEditTech={apiEditTech}
+          deleteTech={deleteTech}
           />
         </Route>
       </Switch>

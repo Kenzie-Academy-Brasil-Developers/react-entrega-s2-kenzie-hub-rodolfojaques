@@ -12,6 +12,13 @@ gap: 1.5rem;
 width: 100%;
 height: 80vh;
 
+    button{
+        &:hover{
+            background-color: #343B41;
+            border: solid #F8F9FA;   
+        }     
+    }
+
     .div1{
         width: 90%;
 
@@ -21,6 +28,11 @@ height: 80vh;
         justify-content: space-between;
 
         gap: 1.5rem;
+        
+        @media(min-width: 770px){
+            flex-direction: row;
+            align-items: center;
+        }
     }
 
     .div2{
@@ -59,6 +71,27 @@ height: 80vh;
             display: flex; 
             justify-content: space-between;
             align-items: center;
+            gap: .5rem;
+            
+            &:hover{
+                cursor: pointer;
+                background-color: #343B41;
+                border: solid #F8F9FA;
+            }
+        }
+
+        li h4{
+            font-size: .7rem;
+        }
+
+        li span{
+            font-size: .6rem;
+        }
+    }
+
+    form{
+        @media(min-width: 770px){
+            max-width: 700px;
         }
     }
 

@@ -3,7 +3,7 @@ import { HeaderMain } from "./styles";
 
 import logo from '../../assets/Logo.png'
 
-export function Header({nameButton = "Voltar", onclick}){
+export function Header({nameButton = "Voltar", onclick, divsize= "20%"}){
 
     return(
         <HeaderMain>
@@ -12,7 +12,7 @@ export function Header({nameButton = "Voltar", onclick}){
               onclick={onclick}
               nameButton={nameButton}
               backcolor='#212529' 
-              divSize= "20%"
+              divSize= {divsize}
               sizeX="1.5rem"
               size='3rem' />
         </HeaderMain>

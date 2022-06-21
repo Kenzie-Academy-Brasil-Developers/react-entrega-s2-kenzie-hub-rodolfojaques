@@ -27,8 +27,6 @@ export function Register({createUser}){
     resolver: yupResolver(schema)
   })
 
-  console.log(errors);
-
   const history = useHistory()
 
   function backLogin(){

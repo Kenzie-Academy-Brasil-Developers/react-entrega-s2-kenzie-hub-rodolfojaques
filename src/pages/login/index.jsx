@@ -4,11 +4,11 @@ import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { useHistory } from 'react-router-dom';
+
 import logo from '../../assets/Logo.png'
 import { Button } from '../../components/button';
 import { Main } from '../../components/main';
-
-import { useHistory } from 'react-router-dom';
 import { FormApp } from '../../components/form/styles';
 
 export function Login({ logUser }){
